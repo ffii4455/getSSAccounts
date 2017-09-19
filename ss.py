@@ -7,6 +7,17 @@ from subprocess import Popen
 from tkinter import messagebox
 import tkinter
 import traceback
+import base64
+
+def qrCodeDecodeOnline(url):
+    #此处的token还需根据网页上的token来修改
+    r = requests.post('http://jiema.wwei.cn/url/jiema/token/225e628fa8ba8b8d9de95d773ac49527.html', data={'jiema_url':url})
+
+    data = r.text
+    start = data.find("ss:\/\/") + 7
+    end = data.find("\"", start)
+    ssKey = data[start:end]
+    return base64.b64decode(ssKey)
 
 def main():
     URL = "http://ss.ishadowx.com/"
