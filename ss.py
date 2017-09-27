@@ -10,11 +10,17 @@ import traceback
 import base64
 
 def qrCodeDecodeOnline(url):
-    #此处的token还需根据网页上的token来修改
-    r = requests.post('http://jiema.wwei.cn/url/jiema/token/225e628fa8ba8b8d9de95d773ac49527.html', data={'jiema_url':url})
-
+    #获取token
+    r = requests.get("http://jiema.wwei.cn/url.html")
     data = r.text
-    start = data.find("ss:\/\/") + 7
+    start = data.find(TOKEN_IDT) + len(TOKEN_IDT)
+    end = data.find(".html", start)
+    token = data[start:end]
+    
+    #在线解析二维码
+    r = requests.post('http://jiema.wwei.cn/url/jiema/token/%s.html' % token, data={'jiema_url':url})
+    data = r.text
+    start = data.find(SS_INF_IDT) + len(SS_INF_IDT)
     end = data.find("\"", start)
     ssKey = data[start:end]
     return base64.b64decode(ssKey)
