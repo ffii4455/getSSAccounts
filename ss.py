@@ -4,8 +4,6 @@ import requests
 import re
 import json
 from subprocess import Popen
-from tkinter import messagebox
-import tkinter
 import traceback
 import base64
 
