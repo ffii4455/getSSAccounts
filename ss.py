@@ -7,6 +7,9 @@ from subprocess import Popen
 import traceback
 import base64
 
+TOKEN_IDT = "/url/jiema/token/"
+SS_INF_IDT = "ss:\/\/"
+
 def qrCodeDecodeOnline(url):
     #获取token
     r = requests.get("http://jiema.wwei.cn/url.html")
